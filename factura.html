@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura de Compra</title>
+</head>
+<body>
+    <h1>Factura de Compra</h1>
+    <p><strong>Cliente:</strong> {{ cliente.nombre }}</p>
+    <p><strong>Correo:</strong> {{ cliente.email }}</p>
+    <p><strong>Tipo de Combustible:</strong> {{ tipo_combustible }}</p>
+    <p><strong>Cantidad:</strong> {{ litros }} Litros</p>
+    <p><strong>Precio Total:</strong> ${{ precio_total }}</p>
+    <p><strong>Fecha de Compra:</strong> {{ fecha }}</p>
+    <p>¡Gracias por su compra!</p>
+    <br>
+    <a href="{{ url_for('comprar_combustible') }}">Volver a comprar</a>
+</body>
+</html>

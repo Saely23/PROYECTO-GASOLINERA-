@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Gasolinera</title>
+</head>
+<body>
+    <h1>Bienvenido al sistema de gasolinera</h1>
+
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% if 'cliente_id' in session %}
+        <p>Bienvenido, Cliente</p>
+        <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        <h2>Detalle de Compras</h2>
+        <ul>
+        {% for compra in compras %}
+            <li>Combustible: {{ compra.tipo_combustible }} - Litros: {{ compra.litros }} - Total: ${{ compra.precio_total }} - Fecha: {{ compra.fecha }}</li>
+        {% endfor %}
+        </ul>
+    {% elif 'proveedor_id' in session %}
+        <p>Bienvenido, Proveedor</p>
+        <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+        <h2>Reportes de Ventas</h2>
+        <p>Total Gasolina Vendida: {{ total_gasolina }} litros</p>
+        <p>Total Diesel Vendido: {{ total_diesel }} litros</p>
+        <h3>Detalle de Ventas</h3>
+        <ul>
+        {% for venta in ventas %}
+            <li>Cliente ID: {{ venta.cliente_id }} - Combustible: {{ venta.tipo_combustible }} - Litros: {{ venta.litros }} - Total: ${{ venta.precio_total }} - Fecha: {{ venta.fecha }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <ul>
+            <li><a href="{{ url_for('registro_cliente') }}">Registro Cliente</a></li>
+            <li><a href="{{ url_for('login_cliente') }}">Login Cliente</a></li>
+            <li><a href="{{ url_for('registro_proveedor') }}">Registro Proveedor</a></li>
+            <li><a href="{{ url_for('login_proveedor') }}">Login Proveedor</a></li>
+        </ul>
+    {% endif %}
+</body>
+</html>
